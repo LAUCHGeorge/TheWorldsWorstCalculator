@@ -8,6 +8,12 @@ public class Main {
         double[] numberCurrent = {0};
         double[] input = {0, 0};
 
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");  // Windows Look and feel
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         numberCurrent[0] = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter your start number."));
 
         for (int index=0; index==0; index=0) {

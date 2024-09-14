@@ -69,7 +69,7 @@ public class Main {
                 }
                 break;
             default:
-                JOptionPane.showMessageDialog(null,"ERROR: specified inputType not found");
+                JOptionPane.showMessageDialog(null,"ERROR: The specified inputType was not found.");
                 break;
         }
         System.out.println("test");

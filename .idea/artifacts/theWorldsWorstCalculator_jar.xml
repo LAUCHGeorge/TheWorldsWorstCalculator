@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="theWorldsWorstCalculator:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/theWorldsWorstCalculator_jar</output-path>
+    <root id="archive" name="theWorldsWorstCalculator.jar">
+      <element id="module-output" name="theWorldsWorstCalculator" />
+    </root>
+  </artifact>
+</component>

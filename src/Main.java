@@ -1,72 +1,80 @@
-import java.util.*;
 import javax.swing.*;
 
 public class Main {
 
+    static double currentNumber = 0;
+
     public static void main(String[] args) {
 
-        double[] numberCurrent = {0};
-        double[] input = {0, 0};
+        double input = 0;
+        int inputType = 0;
+        String[] typeOptions = {"Done", "+", "-", "*", "/", "\u221A", "^", "!"};
 
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");  // Windows Look and feel
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
+                 UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
 
-        numberCurrent[0] = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter your start number."));
+        currentNumber = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter your start number."));
 
-        for (int index=0; index==0; index=0) {
-            input = inputPhase(input, numberCurrent);
-            numberCurrent = calcPhase(input, numberCurrent);
+        while (true) {
+            inputType = JOptionPane.showOptionDialog(null, "Your current Number is: " + currentNumber + "\n Please choose your next Action.", "The worlds worst Calculator", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, typeOptions, 0);
+            if (inputType == -1) {System.exit(420);}
+            calculate(inputType,input);
         }
-
-
-
-
     }
 
-    static double[] inputPhase(double[] input, double[] numberCurrent) {
-        String[] typeOptions = {"Done","+","-","*","/","\u221A","^"};
-        input[0] = JOptionPane.showOptionDialog(null, "Your current Number is: "+numberCurrent[0]+"\n Please choose your next Action.", "Worlds worst Calculator", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, typeOptions, 0);
-        if (input[0] ==0 || input[0] == 5) {
-            return input;
-        }
-        else {
-            input[1] = Double.parseDouble(JOptionPane.showInputDialog(null, "Your current Number is: "+numberCurrent[0]+"\n Please enter your next Number."));
-            return input;
-        }
-
+    static double input() {
+        String input = JOptionPane.showInputDialog(null, "Your current Number is: " + currentNumber + "\n Please enter your next Number.");
+        if (input == null) {System.exit(420);}
+        return Double.parseDouble(input);
     }
 
-    static double[] calcPhase(double[] input, double[] numberCurrent) {
-        switch((int) input[0]) {
+    static void calculate(int inputType, double input) {
+        double result = -1;
+        switch(inputType) {
             case 0:
                 System.exit(0);
                 break;
             case 1:
-                numberCurrent[0] = numberCurrent[0]+input[1];
+                result = currentNumber +input();
                 break;
             case 2:
-                numberCurrent[0] = numberCurrent[0]-input[1];
+                result = currentNumber -input();
                 break;
             case 3:
-                numberCurrent[0] = numberCurrent[0]*input[1];
+                result = currentNumber *input();
                 break;
             case 4:
-                numberCurrent[0] = numberCurrent[0]/input[1];
+                result = currentNumber /input();
                 break;
             case 5:
-                numberCurrent[0] = Math.sqrt(numberCurrent[0]);
+                result = Math.sqrt(currentNumber);
                 break;
             case 6:
-                numberCurrent[0] = Math.pow(numberCurrent[0],input[1]);
+                result = Math.pow(currentNumber,input());
+                break;
+            case 7:
+                if (currentNumber <= 720) {
+                    result = 1;
+                    for (int factor = 2; factor <= currentNumber; factor++) {
+                        result *= factor;
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(null,"This number is too high.");
+                    result = currentNumber;
+                }
                 break;
             default:
-                System.out.println("[DEBUG] how tf.");
+                JOptionPane.showMessageDialog(null,"ERROR: specified inputType not found");
                 break;
         }
-        return numberCurrent;
+        System.out.println("test");
+        if (result != Double.POSITIVE_INFINITY && result != Double.NEGATIVE_INFINITY) {currentNumber = result;}
+        else {JOptionPane.showMessageDialog(null,"This number is too high.");}
     }
 
 }

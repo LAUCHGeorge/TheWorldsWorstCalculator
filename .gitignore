@@ -3,6 +3,16 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
+!**/src/META-INF/
+
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+*.iws
+
+
 ### Eclipse ###
 .apt_generated
 .classpath

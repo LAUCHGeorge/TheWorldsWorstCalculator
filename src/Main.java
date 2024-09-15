@@ -11,13 +11,25 @@ public class Main {
         String[] typeOptions = {"Done", "+", "-", "*", "/", "\u221A", "^", "!"};
 
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");  // Windows Look and feel
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
-                 UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            System.err.println("Exception occurred: "+e.getMessage());
         }
 
-        currentNumber = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter your start number."));
+        boolean success = false;
+        while (!success) {
+            try {
+                currentNumber = Double.parseDouble(JOptionPane.showInputDialog(null, "Please enter your start number."));
+                success = true;
+            }
+            catch (NumberFormatException e) {
+                System.err.println("The user was too stupid to enter a number, which is why an exception was thrown: "+e.getMessage());
+                JOptionPane.showMessageDialog(null,"Please enter a valid number.");
+            }
+            catch (NullPointerException e) {
+                System.exit(420);
+            }
+        }
 
         while (true) {
             inputType = JOptionPane.showOptionDialog(null, "Your current Number is: " + currentNumber + "\n Please choose your next Action.", "The worlds worst Calculator", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, typeOptions, 0);
@@ -27,9 +39,23 @@ public class Main {
     }
 
     static double input() {
-        String input = JOptionPane.showInputDialog(null, "Your current Number is: " + currentNumber + "\n Please enter your next Number.");
-        if (input == null) {System.exit(420);}
-        return Double.parseDouble(input);
+
+        double input = 0;
+        boolean success = false;
+        while (!success) {
+            try {
+                input = Double.parseDouble(JOptionPane.showInputDialog(null, "Your current Number is: " + currentNumber + "\n Please enter your next Number."));
+                success = true;
+            }
+            catch (NumberFormatException e) {
+                System.err.println("The user was too stupid to enter a number, which is why an exception was thrown: "+e.getMessage());
+                JOptionPane.showMessageDialog(null,"Please enter a valid number.");
+            }
+            catch (NullPointerException e) {
+                System.exit(420);
+            }
+        }
+        return input;
     }
 
     static void calculate(int inputType, double input) {

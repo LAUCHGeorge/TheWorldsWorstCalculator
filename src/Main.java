@@ -3,12 +3,12 @@ import javax.swing.*;
 public class Main {
 
     static double currentNumber = 0;
+    static double input = 0;
+    static int inputType = 0;
+    static int calcType = -1;
+    static String[] typeOptions = {"Done", "+", "-", "*", "/", "\u221A", "^", "!","~"};
 
     public static void main(String[] args) {
-
-        double input = 0;
-        int inputType = 0;
-        String[] typeOptions = {"Done", "+", "-", "*", "/", "\u221A", "^", "!"};
 
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -16,6 +16,27 @@ public class Main {
             System.err.println("Exception occurred: "+e.getMessage());
         }
 
+        String[] calculatorTypes = {"UI", "TEXT"};
+        boolean success = false;
+        while(!success) {
+            calcType = -1;
+            calcType = JOptionPane.showOptionDialog(null, "How do you want to calculate with your calculator?", "The worlds worst Calculator", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, calculatorTypes, 0);
+            switch(calcType) {
+                case 0:
+                    UI();
+                    success = true;
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null,"Not implemented, L bozo");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null,"ERROR: calcType did not return valid type");
+            }
+        }
+
+    }
+
+    static void UI() {
         boolean success = false;
         while (!success) {
             try {
@@ -94,11 +115,14 @@ public class Main {
                     result = currentNumber;
                 }
                 break;
+            case 8:
+                result = currentNumber = Math.round(currentNumber);
+                break;
             default:
                 JOptionPane.showMessageDialog(null,"ERROR: The specified inputType was not found.");
                 break;
+
         }
-        System.out.println("test");
         if (result != Double.POSITIVE_INFINITY && result != Double.NEGATIVE_INFINITY) {currentNumber = result;}
         else {JOptionPane.showMessageDialog(null,"This number is too high.");}
     }

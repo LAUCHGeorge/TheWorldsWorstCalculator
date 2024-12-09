@@ -22,6 +22,9 @@ public class Main {
             calcType = -1;
             calcType = JOptionPane.showOptionDialog(null, "How do you want to calculate with your calculator?", "The worlds worst Calculator", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, calculatorTypes, 0);
             switch(calcType) {
+                case -1:
+                    System.out.println("User exited program manually.");
+                    System.exit(69);
                 case 0:
                     UI();
                     success = true;
@@ -30,7 +33,7 @@ public class Main {
                     JOptionPane.showMessageDialog(null,"Not implemented, L bozo");
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null,"ERROR: calcType did not return valid type");
+                    JOptionPane.showMessageDialog(null,"ERROR: calcType did not return valid type\n"+calcType);
             }
         }
 
@@ -54,7 +57,7 @@ public class Main {
 
         while (true) {
             inputType = JOptionPane.showOptionDialog(null, "Your current Number is: " + currentNumber + "\n Please choose your next Action.", "The worlds worst Calculator", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, typeOptions, 0);
-            if (inputType == -1) {System.exit(420);}
+            if (inputType == -1) {System.exit(69);}
             calculate(inputType,input);
         }
     }
